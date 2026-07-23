@@ -1,0 +1,15 @@
+[package]
+name = "stora-knowledge"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+stora-core = { workspace = true }
+stora-security = { workspace = true }
+stora-winapi = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+[dev-dependencies]
+tempfile = { workspace = true }

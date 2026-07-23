@@ -1,0 +1,65 @@
+# ------------------------------------------------------------ dependencies
+node_modules/
+apps/desktop/node_modules/
+
+# -------------------------------------------------------------- build output
+target/
+dist/
+apps/desktop/dist/
+apps/desktop/src-tauri/target/
+apps/desktop/src-tauri/gen/
+
+# ---------------------------------------------------------- local app state
+# Stora's database, quarantine, and runtime logs are per-machine data and
+# must never be published with the application source.
+*.db
+*.db-shm
+*.db-wal
+quarantine/
+logs/
+*.log
+*.log.*
+
+# ------------------------------------------------------- secrets / signing
+.env
+.env.*
+!.env.example
+*.key
+*.key.pub
+*.pem
+*.p12
+*.pfx
+*.cer
+*.crt
+credentials.json
+secrets.json
+
+# Tauri updater signing keys generated locally. The public key is copied into
+# tauri.conf.json; the private key belongs only in a password manager and the
+# TAURI_SIGNING_PRIVATE_KEY GitHub Actions secret.
+.tauri/
+tauri-signing-key*
+
+# --------------------------------------------------------------- IDE / OS
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --------------------------------------------------------- test / coverage
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+
+# ---------------------------------------------------------- local tooling
+.eslintcache
+*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*

@@ -1,0 +1,17 @@
+[package]
+name = "stora-index"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+stora-core = { workspace = true }
+stora-security = { workspace = true }
+rusqlite = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tracing = { workspace = true }
+
+[dev-dependencies]
+stora-scanner = { workspace = true }
+tempfile = { workspace = true }

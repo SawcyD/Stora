@@ -1,0 +1,15 @@
+[package]
+name = "stora-scanner"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+stora-core = { workspace = true }
+stora-security = { workspace = true }
+stora-winapi = { workspace = true }
+serde = { workspace = true }
+tracing = { workspace = true }
+
+[dev-dependencies]
+tempfile = { workspace = true }

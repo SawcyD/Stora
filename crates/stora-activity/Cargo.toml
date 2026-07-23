@@ -1,0 +1,22 @@
+[package]
+name = "stora-activity"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+stora-core = { workspace = true }
+stora-security = { workspace = true }
+serde = { workspace = true }
+tracing = { workspace = true }
+
+[target.'cfg(windows)'.dependencies]
+windows = { version = "0.58", features = [
+    "Win32_Foundation",
+    "Win32_System_Diagnostics_ToolHelp",
+    "Win32_System_Registry",
+    "Win32_System_Threading",
+] }
+
+[dev-dependencies]
+tempfile = { workspace = true }

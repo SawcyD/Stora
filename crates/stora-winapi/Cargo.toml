@@ -1,0 +1,30 @@
+[package]
+name = "stora-winapi"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+stora-core = { workspace = true }
+stora-security = { workspace = true }
+serde = { workspace = true }
+tracing = { workspace = true }
+
+[target.'cfg(windows)'.dependencies]
+windows = { version = "0.58", features = [
+    "Win32_Foundation",
+    "Win32_Storage_FileSystem",
+    "Win32_System_Com",
+    "Win32_System_Registry",
+    "Win32_System_SystemServices",
+    "Win32_System_WindowsProgramming",
+    "Win32_Security_Credentials",
+    "Win32_UI_Shell",
+    "Win32_UI_Shell_Common",
+    "Win32_System_RestartManager",
+    "Win32_Graphics_Dwm",
+] }
+windows-core = "0.58"
+
+[dev-dependencies]
+tempfile = { workspace = true }

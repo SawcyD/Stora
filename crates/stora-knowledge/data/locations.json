@@ -1,0 +1,176 @@
+{
+  "$comment": "Curated, offline explanations of what writes to well-known Windows locations. Every entry is hand-written and cites primary documentation. There is deliberately no model-generated text and no confidence score here: an entry either exists or it does not.",
+  "version": 1,
+  "entries": [
+    {
+      "id": "userTemp",
+      "pattern": "%LOCALAPPDATA%\\Temp",
+      "title": "User temporary files",
+      "writtenBy": "Any program you run, plus Windows installers.",
+      "ifRemoved": "Programs recreate whatever they need. Files currently open are locked and will be skipped.",
+      "removable": true,
+      "sourceTitle": "Recommended file exclusions - Microsoft Learn",
+      "sourceUrl": "https://learn.microsoft.com/windows/client-management/client-tools/troubleshoot-windows-startup"
+    },
+    {
+      "id": "windowsTemp",
+      "pattern": "C:\\Windows\\Temp",
+      "title": "System temporary files",
+      "writtenBy": "Windows itself and installers running as the system account.",
+      "ifRemoved": "Windows recreates the folder contents. Files held open by a running service are skipped.",
+      "removable": true,
+      "sourceTitle": "Disk Cleanup in Windows - Microsoft Support",
+      "sourceUrl": "https://support.microsoft.com/windows/disk-cleanup-in-windows-8a96ff42-5751-39ad-23d6-434b4d5b9a68"
+    },
+    {
+      "id": "winsxs",
+      "pattern": "C:\\Windows\\WinSxS",
+      "title": "Component store (WinSxS)",
+      "writtenBy": "Windows servicing. It holds every component version Windows can roll back to.",
+      "ifRemoved": "Do not delete this. Windows Update and feature installation break, and repair becomes impossible. Its reported size is also misleading: much of it is hard links to files that live elsewhere in Windows. Use DISM if you need to reclaim space.",
+      "removable": false,
+      "sourceTitle": "Clean up the WinSxS folder - Microsoft Learn",
+      "sourceUrl": "https://learn.microsoft.com/windows-hardware/manufacture/desktop/clean-up-the-winsxs-folder"
+    },
+    {
+      "id": "system32",
+      "pattern": "C:\\Windows\\System32",
+      "title": "Windows system files",
+      "writtenBy": "Windows setup and Windows Update. It holds the operating system's own executables, drivers, and libraries.",
+      "ifRemoved": "Windows will not start. Nothing in this folder is safe to remove, and Stora refuses to modify it regardless of what any tool claims.",
+      "removable": false,
+      "sourceTitle": "Windows system directories - Microsoft Learn",
+      "sourceUrl": "https://learn.microsoft.com/windows/win32/fileio/naming-a-file"
+    },
+    {
+      "id": "installer",
+      "pattern": "C:\\Windows\\Installer",
+      "title": "Windows Installer cache",
+      "writtenBy": "Windows Installer, when MSI-based software is installed.",
+      "ifRemoved": "Do not delete this. Removing it breaks repair, update, and uninstall for every program installed through an MSI, often without warning until you try.",
+      "removable": false,
+      "sourceTitle": "Do not delete the Installer folder - Microsoft Support",
+      "sourceUrl": "https://learn.microsoft.com/troubleshoot/windows-server/application-management/cannot-delete-installer-folder"
+    },
+    {
+      "id": "pagefile",
+      "pattern": "C:\\pagefile.sys",
+      "title": "Virtual memory paging file",
+      "writtenBy": "Windows memory management.",
+      "ifRemoved": "Windows manages this file and will not allow it to be deleted while in use. Change its size through System Properties rather than removing it.",
+      "removable": false,
+      "sourceTitle": "How to determine the appropriate page file size - Microsoft Learn",
+      "sourceUrl": "https://learn.microsoft.com/windows-server/administration/performance-tuning/role/file-server/"
+    },
+    {
+      "id": "hiberfil",
+      "pattern": "C:\\hiberfil.sys",
+      "title": "Hibernation file",
+      "writtenBy": "Windows, to store memory contents when the machine hibernates.",
+      "ifRemoved": "It cannot be deleted directly. Turning hibernation off with `powercfg /hibernate off` removes it, but that also disables Fast Startup.",
+      "removable": false,
+      "sourceTitle": "Hibernate - Microsoft Learn",
+      "sourceUrl": "https://learn.microsoft.com/windows-hardware/design/device-experiences/powercfg-command-line-options"
+    },
+    {
+      "id": "thumbnailCache",
+      "pattern": "%LOCALAPPDATA%\\Microsoft\\Windows\\Explorer",
+      "title": "Thumbnail and icon cache",
+      "writtenBy": "File Explorer, as you browse folders containing images and videos.",
+      "ifRemoved": "Explorer rebuilds it. Folders take slightly longer to display the first time you open them afterwards.",
+      "removable": true,
+      "sourceTitle": "Disk Cleanup in Windows - Microsoft Support",
+      "sourceUrl": "https://support.microsoft.com/windows/disk-cleanup-in-windows-8a96ff42-5751-39ad-23d6-434b4d5b9a68"
+    },
+    {
+      "id": "shaderCache",
+      "pattern": "%LOCALAPPDATA%\\D3DSCache",
+      "title": "DirectX shader cache",
+      "writtenBy": "DirectX, when a game or application compiles graphics shaders.",
+      "ifRemoved": "Shaders are recompiled on demand. Expect brief stutter the first time a scene loads afterwards.",
+      "removable": true,
+      "sourceTitle": "Disk Cleanup in Windows - Microsoft Support",
+      "sourceUrl": "https://support.microsoft.com/windows/disk-cleanup-in-windows-8a96ff42-5751-39ad-23d6-434b4d5b9a68"
+    },
+    {
+      "id": "softwareDistribution",
+      "pattern": "C:\\Windows\\SoftwareDistribution\\Download",
+      "title": "Windows Update downloads",
+      "writtenBy": "Windows Update, while staging update packages.",
+      "ifRemoved": "Windows downloads anything it still needs again. Do not remove this while an update is mid-installation.",
+      "removable": true,
+      "sourceTitle": "Windows Update troubleshooting - Microsoft Learn",
+      "sourceUrl": "https://learn.microsoft.com/windows/deployment/update/windows-update-troubleshooting"
+    },
+    {
+      "id": "systemVolumeInformation",
+      "pattern": "C:\\System Volume Information",
+      "title": "System Volume Information",
+      "writtenBy": "Windows, for System Restore points, indexing, and volume metadata.",
+      "ifRemoved": "Access is denied by design and Stora will not modify it. Manage restore point space through System Protection instead.",
+      "removable": false,
+      "sourceTitle": "System Restore - Microsoft Support",
+      "sourceUrl": "https://support.microsoft.com/windows/use-system-restore-a5ae3ed9-07c4-fd56-45ee-096777ecd14e"
+    },
+    {
+      "id": "recycleBin",
+      "pattern": "C:\\$Recycle.Bin",
+      "title": "Recycle Bin storage",
+      "writtenBy": "Windows, when you delete a file.",
+      "ifRemoved": "Emptying it is permanent. Use the Cleanup page or Explorer rather than deleting this folder directly.",
+      "removable": false,
+      "sourceTitle": "Recycle Bin - Microsoft Support",
+      "sourceUrl": "https://support.microsoft.com/windows/permanently-delete-files-from-the-recycle-bin-4f0a0f7b-1f1f-4b34-8b58-2c2f9a20b7dd"
+    },
+    {
+      "id": "nodeModules",
+      "pattern": "**\\node_modules",
+      "title": "Installed npm packages",
+      "writtenBy": "npm, pnpm, or yarn, when a JavaScript project installs its dependencies.",
+      "ifRemoved": "Reinstalling restores it, but that needs network access and the registry has to still carry those versions. Safe to remove for a project you are not working on.",
+      "removable": true,
+      "sourceTitle": "npm-install - npm Docs",
+      "sourceUrl": "https://docs.npmjs.com/cli/commands/npm-install"
+    },
+    {
+      "id": "cargoTarget",
+      "pattern": "**\\target",
+      "title": "Cargo build output",
+      "writtenBy": "Cargo, when a Rust project is built.",
+      "ifRemoved": "The next build recreates it, which takes as long as a clean build. `cargo clean` does the same thing.",
+      "removable": true,
+      "sourceTitle": "Cargo Build Cache - The Cargo Book",
+      "sourceUrl": "https://doc.rust-lang.org/cargo/guide/build-cache.html"
+    },
+    {
+      "id": "unityLibrary",
+      "pattern": "**\\Library",
+      "title": "Unity asset database",
+      "writtenBy": "The Unity Editor, when it imports a project's assets.",
+      "ifRemoved": "Unity rebuilds it the next time the project opens. For a large project that reimport can take a very long time.",
+      "removable": true,
+      "sourceTitle": "Unity project structure - Unity Documentation",
+      "sourceUrl": "https://docs.unity3d.com/Manual/BehindtheScenes.html"
+    },
+    {
+      "id": "wslDisk",
+      "pattern": "**\\ext4.vhdx",
+      "title": "WSL virtual disk",
+      "writtenBy": "Windows Subsystem for Linux. This one file holds an entire Linux filesystem.",
+      "ifRemoved": "Deleting it destroys that distribution and everything in it. It also does not shrink when files inside are deleted — compact it instead with `Optimize-VHD` after `wsl --shutdown`.",
+      "removable": false,
+      "sourceTitle": "Manage disk space in WSL 2 - Microsoft Learn",
+      "sourceUrl": "https://learn.microsoft.com/windows/wsl/disk-space"
+    },
+    {
+      "id": "prefetch",
+      "pattern": "C:\\Windows\\Prefetch",
+      "title": "Prefetch data",
+      "writtenBy": "Windows, to speed up the programs you start most often.",
+      "ifRemoved": "Windows rebuilds it, but the programs it covers start more slowly until it does. There is little to gain: it is capped at 1024 entries and stays small.",
+      "removable": false,
+      "sourceTitle": "Windows performance - Microsoft Learn",
+      "sourceUrl": "https://learn.microsoft.com/windows/win32/procthread/process-and-thread-functions"
+    }
+  ]
+}

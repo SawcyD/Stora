@@ -1,0 +1,52 @@
+[workspace]
+resolver = "2"
+members = [
+    "apps/desktop/src-tauri",
+    "crates/stora-core",
+    "crates/stora-security",
+    "crates/stora-winapi",
+    "crates/stora-index",
+    "crates/stora-scanner",
+    "crates/stora-cleaner",
+    "crates/stora-developer",
+    "crates/stora-apps",
+    "crates/stora-activity",
+    "crates/stora-duplicates",
+    "crates/stora-rules",
+    "crates/stora-knowledge",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.82"
+license = "UNLICENSED"
+
+[workspace.dependencies]
+stora-core = { path = "crates/stora-core" }
+stora-security = { path = "crates/stora-security" }
+stora-winapi = { path = "crates/stora-winapi" }
+stora-index = { path = "crates/stora-index" }
+stora-scanner = { path = "crates/stora-scanner" }
+stora-cleaner = { path = "crates/stora-cleaner" }
+stora-developer = { path = "crates/stora-developer" }
+stora-apps = { path = "crates/stora-apps" }
+stora-activity = { path = "crates/stora-activity" }
+stora-duplicates = { path = "crates/stora-duplicates" }
+stora-rules = { path = "crates/stora-rules" }
+stora-knowledge = { path = "crates/stora-knowledge" }
+
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+tokio = { version = "1", features = ["rt-multi-thread", "sync", "time", "macros"] }
+tracing = "0.1"
+rusqlite = { version = "0.32", features = ["bundled", "chrono"] }
+chrono = { version = "0.4", features = ["serde"] }
+tempfile = "3"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true
